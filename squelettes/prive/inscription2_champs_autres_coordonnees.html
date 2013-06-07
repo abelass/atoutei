@@ -1,0 +1,5 @@
+<li class="autres_coordonnees[ (#CONFIG{inscription2/autres_coordonnees_obligatoire}|=={on}|oui)obligatoire][ (#ENV**{erreurs}|table_valeur{autres_coordonnees}|oui)erreur]">
+  <label for="autres_coordonnees"><:autres_coordonnees:></label>
+    <textarea name="autres_coordonnees">#ENV{autres_coordonnees,#ENV{val}}</textarea>
+  [<p class='erreur_message'>(#ENV**{erreurs}|table_valeur{autres_coordonnees})</p>]
+</li>

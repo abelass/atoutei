@@ -1,0 +1,62 @@
+	#CACHE{0}
+
+
+   	#FORMULAIRE_RECHERCHE
+
+
+	[(#REM) Lien vers site membre ou site public ]
+	
+#SET{zone_membres,#ARRAY{}}
+<BOUCLE_rubs(RUBRIQUES){id_zone=1}{tout_voir}>
+	#SET{zone_membres,#GET{zone_membres}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_RUBRIQUE}}}
+	<BOUCLE_sousrub(RUBRIQUES){branche}{doublons}{tout_voir}>
+		#SET{zone_membres,#GET{zone_membres}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_RUBRIQUE}}}
+	</BOUCLE_sousrub>
+</BOUCLE_rubs>
+
+
+	
+	[(#ID_RUBRIQUE|in_array{#GET{zone_membres}}|?{
+		<div class="bouton_lien_rubr"><a href="#URL_SITE_SPIP">&gt; Site public</a></div>
+		,
+		<div class="bouton_lien_rubr"><a href="spip.php?rubrique2">&gt; Espace membres</a></div>
+		})]
+    [(#SESSION{id_auteur}|?{' '})<div class="bouton_lien_rubr"><a href="#URL_LOGOUT" rel="nofollow">&gt; <:icone_deconnecter:></a></div>]
+
+
+   [(#REM) Ce mois-ci ]
+	<BOUCLE_ce_mois_ci(ARTICLES){id_rubrique=40}{0,1}>
+    <div class="ce_moi_ci">
+	<BOUCLE_ce_mois_ci_titre_rubr(RUBRIQUES){id_rubrique=40}>
+    <h3><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero|couper{30})]</a></h3>
+    </BOUCLE_ce_mois_ci_titre_rubr>
+     <h4><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero|couper{30})]</a></h4>
+	[(#TEXTE|couper{500})]
+	</div>
+	</BOUCLE_ce_mois_ci>
+    
+    
+    
+   [(#REM) News ]
+   <B_news>
+   <div class="news_col_droite">
+    <BOUCLE_news_titre_rubr(RUBRIQUES){id_rubrique=41}><h3><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero|couper{30})]</a></h3></BOUCLE_news_titre_rubr>
+	<BOUCLE_news(ARTICLES){id_rubrique=41}{par date}{0,3}>
+     <h4><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero|couper{30})]</a></h4>
+	 [<div class="paragr_news">(#TEXTE|couper{100})</div>]
+	</BOUCLE_news>
+	</div>
+   </B_news>
+
+
+    
+   [(#REM) Agenda ]
+   <B_agenda>
+   <div class="agenda_col_droite">
+    <BOUCLE_agenda_titre_rubr(RUBRIQUES){id_rubrique=42}><h3><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero|couper{30})]</a></h3></BOUCLE_agenda_titre_rubr>
+	<BOUCLE_agenda(ARTICLES){id_rubrique=42}{par date}{0,3}>
+     <h4><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero|couper{30})]</a></h4>
+	 [<div class="paragr_agenda">(#TEXTE|couper{100})</div>]
+	</BOUCLE_agenda>
+ 	</div>
+   </B_agenda>

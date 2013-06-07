@@ -1,0 +1,115 @@
+#CACHE{3600*24*4}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title>[(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|textebrut)" />]
+
+<INCLURE{fond=inc-head}>
+[(#REM) Lien vers le flux RSS des articles la rubrique ]
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+
+[(#REM) mis dans inc-head
+<link href="design/atout_ei.css" rel="stylesheet" type="text/css" media="all" />
+<link href="design/print_atout_ei.css" rel="stylesheet" type="text/css" media="print" />
+
+
+
+<script src='js/jquery-1.7.2.min.js' type='text/javascript'></script> <!-- menu déroulant -->
+<script src='js/menu.js' type='text/javascript'></script> <!-- menu déroulant -->
+
+    <link rel="stylesheet" href="js/nivo_slider/themes/default/default.css" type="text/css" media="screen" /><!-- nivo_slider -->
+    <link rel="stylesheet" href="js/nivo_slider/nivo-slider.css" type="text/css" media="screen" /><!-- nivo_slider -->
+]
+
+<link rel="shortcut icon" href="design/favicon.ico" />
+
+[(#REM) Feuille de style CSS avec les styles qui changent en fonction de la rubrique ]
+[<link rel="stylesheet" href="(#URL_PAGE{change_couleur_selon_rubrique.css,id_secteur=#ID_SECTEUR})" type="text/css" media="all" />]
+
+
+
+
+
+</head>
+
+
+<body>
+<div id="center_container">
+ <div id="outer_container">
+  <div id="page_utile">
+
+  <!-- header -->
+  <div id="header">
+	&nbsp;<a href="spip.php" class="back_home" title="Accueil"></a>
+    
+   <INCLURE{fond=inc-menu_public}>
+    
+  <div id="col_gauche">&nbsp;
+
+  </div>
+     
+  <div id="col_centre">
+
+	<BOUCLE_article_sommaire(ARTICLES) {id_article=45}>
+
+    <!-- Diapo -->
+    <div id="wrapper_slider">
+        <div class="slider-wrapper theme-default">
+            <div id="slider" class="nivoSlider">
+                        
+                <BOUCLE_documents_portfolio(DOCUMENTS) {id_article} {mode=document}{extension IN png,jpg,gif} {par num titre, date}{doublons}{vu=non}>
+            
+                    [(#FICHIER
+                    |image_reduire{630,630}
+                    |image_recadre{630,160,center,'#FFFFFF'}
+                    |inserer_attribut{class,spip_logos}
+                    |inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+                  
+                </BOUCLE_documents_portfolio>                
+                
+            </div>
+        </div>
+
+    </div>  
+	
+	 <div class="surlignable">
+	  [<h2 class="#EDIT{titre} entry-title">(#TITRE|supprimer_numero)</h2>]
+	  [<div class="#EDIT{chapo} chapo">(#CHAPO)</div>]
+	  [<div class="#EDIT{texte} texte entry-content">(#TEXTE|image_reduire{630,0})</div>]
+	  [<div class="ps surlignable"><h3 class="pas_surlignable"><:info_ps:></h3><div class="#EDIT{ps}">(#PS|image_reduire{500,0})</div></div>]
+      [<div class="notes surlignable"><h3 class="pas_surlignable"><:info_notes:></h3>(#NOTES)</div>]
+	 </div>
+    </BOUCLE_article_sommaire>
+	<br class="float_stop" />
+
+	<INCLURE{fond=inc-mosaique_sommaire}>
+
+
+
+  </div>
+   
+   <div id="col_droite"><!-- col_droite -->
+	<INCLURE{fond=inc-colonne_droite}{home=oui}>
+   </div><!-- #col_droite -->
+
+
+   <br class="float_stop" />
+    <div id="footer">
+	 <INCLURE{fond=inc-footer}>
+    </div>
+
+
+  </div>
+ </div>
+</div>
+
+    <script type="text/javascript" src="js/nivo_slider/jquery.nivo.slider.pack.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+    </script>
+
+</body>
+</html>

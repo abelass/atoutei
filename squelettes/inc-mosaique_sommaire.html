@@ -1,0 +1,16 @@
+#CACHE{0}
+
+    <BOUCLE_mosaique_logos_auteurs(AUTEURS auteurs_elargis zones_auteurs){statut IN 6forum}{zones_auteurs.id_zone=1}{logo}{tout}{par hasard}{0,12}>
+        [<div class="mosaique_logos_auteurs">
+        <a href="#URL_AUTEUR" title="#NOM - [(#ADRESSE_PRO)]" >
+        (#LOGO_AUTEUR
+        |image_reduire{130,130}
+        |image_recadre{130,130,center,#FFFFFF}
+        ||inserer_attribut{alt,#NOM}
+        )    
+        </a></div>]
+    </BOUCLE_mosaique_logos_auteurs>
+
+   <br class="float_stop" />&nbsp;
+   <br />&nbsp;
+   

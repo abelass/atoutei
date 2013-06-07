@@ -1,0 +1,110 @@
+<BOUCLE_principale(AUTEURS auteurs_elargis zones_auteurs){zones_auteurs.id_zone=1} {id_auteur}{tout}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title>[(#NOM|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#BIO|couper{150}|attribut_html)" />]
+<INCLURE{fond=inc-head} />
+
+[(#REM) mis dans inc-head
+<link href="design/atout_ei.css" rel="stylesheet" type="text/css" media="all" />
+<link href="design/print_atout_ei.css" rel="stylesheet" type="text/css" media="print" />
+<script src='js/jquery-1.7.2.min.js' type='text/javascript'></script> <!-- menu déroulant -->
+<script src='js/menu.js' type='text/javascript'></script> <!-- menu déroulant -->
+]
+
+[(#REM) Favicon personnalisee a partir du logo (si filtres d'image) ]
+[(#MODELE{favicon}{favicon=#LOGO_AUTEUR})]
+</head>
+
+<body>
+<div id="center_container">
+ <div id="outer_container">
+  <div id="page_utile">
+
+  <!-- header -->
+  <div id="header">
+  <div id="print_head"><img src="design/print_head.jpg" alt="Atout EI" /></div>
+	&nbsp;<a href="spip.php" class="back_home" title="Accueil"></a>
+    
+   <INCLURE{fond=inc-menu_public}>
+    
+  <div id="col_gauche">&nbsp;
+
+  </div>
+     
+  <div id="col_centre">
+   
+        [(#REM) Fil d'Ariane ]
+        <div id="hierarchie"><a href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <:info_auteurs:>[ &gt; <strong class="on">(#NOM|couper{80})</strong>]</div>
+
+        [<div class="logo_auteur_detail">(#LOGO_AUTEUR|image_reduire{300,300}||inserer_attribut{alt,#NOM})</div>]
+        <br />
+        
+        [<h1>(#NOM)</h1>]
+        
+        <h2>Adresse</h2>
+        <ul>
+        [<li>Adresse : (#ADRESSE_PRO)</li>]
+        [<li>Ville : (#VILLE_PRO)</li>]
+        [<li>Région : (#REGION_PRO|correspondance_provinces)</li>]
+        [<li>Adresse du siège d'exploitation : (#ADRESSE_SIEGE_EXPLOITATION)</li>]
+        </ul>
+
+        <h2>Contact</h2>
+        <ul>
+        [<li>Téléphone : (#TELEPHONE_PRO)</li>]
+        [<li>Fax : (#FAX_PRO)</li>]
+        [<li>Chef d'entreprise : (#CHEF_ENTREPRISE)</li>]
+        [<li>Autres coordonnées : (#AUTRES_COORDONNEES)</li>]
+        [<li>Personne de contact : (#PERSONNE_CONTACT)</li>]
+        [<li>Email :  <a href="mailto:(#EMAIL)">][(#EMAIL)</a></li>]
+        [<li>Site Web : <a href="(#URL_SITE)" class="url org spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></li>]
+        [<li>Numéro d'entreprise : (#NR_ENTREPRISE)</li>]
+        </ul>
+
+		<B_secteurs>
+        <h2><:inscription2:secteur:></h2>
+        <BOUCLE_secteurs(MOTS){id_mot IN #SECTEUR|unserialize}{', '}>#TITRE</BOUCLE_secteurs>
+		<br /> <br />
+		</B_secteurs>
+        
+        [<h2>Autres informations sur l'activité de l'entreprise</h2>
+        (#SECTEUR_DETAILLE)</li> <br /> <br />]
+
+        [<h2>Type de clientèle</h2>
+        (#TYPE_CLIENTELE) <br /> <br />]
+
+ 	 	 	 	 	
+    [(#INCLURE{fond=modeles/carte_gis,
+            objets=auteurs,
+            zoom=8,
+            autofocus_marker=oui,
+            height=600px,
+            width=100%,
+            scale=oui,
+            secteur=tout,
+            id_auteur,
+            }
+            )]
+  </div>
+   
+   <div id="col_droite"><!-- col_droite -->
+	<INCLURE{fond=inc-colonne_droite}{id_secteur}>
+   </div><!-- #col_droite -->
+
+
+   <br class="float_stop" />
+    <div id="footer">
+	 <INCLURE{fond=inc-footer}>
+    </div>
+
+
+  </div>
+ </div>
+</div>
+
+
+</body>
+</html>
+</BOUCLE_principale>

@@ -1,0 +1,22 @@
+   <div id="menu_horiz">
+        
+        <ul id="menu_deroul">
+          <li><a href="#URL_SITE_SPIP" title="Retour à l'accueil">Bienvenue</a></li>
+        <B_rubriques>
+          <BOUCLE_rubriques(RUBRIQUES){id_parent=1}{par num titre, titre}>
+          <li><a href="#URL_RUBRIQUE"[ class="(#EXPOSE)"] title="[(#DESCRIPTIF|couper{120})]">[(#TITRE|couper{80}|supprimer_numero)]</a>
+            <B_sous_rubriques>
+             <ul class="sous_menu_deroul">
+                <BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
+                <li><a href="#URL_RUBRIQUE"[ class="(#EXPOSE)"] title="[(#DESCRIPTIF|couper{120})]">[(#TITRE|couper{80}|supprimer_numero)]</a>
+                </li>
+                </BOUCLE_sous_rubriques>
+              </ul>
+            </B_sous_rubriques>
+          </li>
+          </BOUCLE_rubriques>
+          </B_rubriques>
+        </ul>
+        </div>
+
+   </div>

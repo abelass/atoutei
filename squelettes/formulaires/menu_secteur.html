@@ -1,0 +1,28 @@
+<div class="formulaire_spip formulaire_secteur ajax">
+<form action="#ENV{action}" method="post"><div>
+    #ACTION_FORMULAIRE{#ENV{action}}
+    <ul>
+        <li class="editer_la_demo obligatoire">
+	<B_secteurs>
+			<label for="secteur"><:inscription2:secteur:></label>
+		<select name="secteur" id="secteur" class="text">	
+			<option value=""[(#ENV{val}|=={''}|oui)selected="selected"]><:inscription2:choisissez:></option>						
+		<BOUCLE_secteurs(MOTS){id_groupe=1}>
+			<option value="#ID_MOT"[(#ENV{secteur}|=={#ID_MOT}|oui)selected="selected"]>#TITRE</option>		
+		</BOUCLE_secteurs>
+		</select>
+	</B_secteurs>
+        </li>
+    </ul>
+    <p class="boutons"><input type="submit" class="submit" value="<:pass_ok:>" /></p>
+</div></form>
+</div>
+
+<B_auteurs>
+	<ul>
+<BOUCLE_auteurs(AUTEURS auteurs_elargis){secteur} {par auteurs_elargis.societe}{tout} >
+	<li><a href="#URL_AUTEUR">#PRENOM #NOM_FAMILLE</a></li>
+</BOUCLE_auteurs>
+</ul>
+</B_auteurs>
+

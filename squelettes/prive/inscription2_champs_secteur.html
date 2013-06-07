@@ -1,0 +1,14 @@
+#SET{valeur,#ENV**{secteur,#ENV**{val}}}
+[(#GET{valeur}|is_array|non)#SET{valeur,#GET{valeur}|unserialize}]
+<li class="editer_secteur[ (#CONFIG{inscription2/secteur_obligatoire}|=={on}|oui)obligatoire][ (#ENV**{erreurs}|table_valeur{secteur}|oui)erreur]">
+  <label for="secteur"><:inscription2:secteur:></label>
+
+  <B_secteurs>
+    <div class="choix">     
+    <BOUCLE_secteurs(MOTS){id_groupe=1} {par num titre,titre}>
+      <input type="checkbox" class="radio" name="secteur[#COMPTEUR_BOUCLE]" value="#ID_MOT" [(#GET{valeur}|is_array|oui)[(#ID_MOT|in_array{#GET{valeur}}|oui)checked="ckecked"]]/><label>#TITRE</label>    
+    </BOUCLE_secteurs>
+    </div>
+  </B_secteurs>
+ [<p class='erreur_message'>(#ENV**{erreurs}|table_valeur{secteur})</p>]
+</li>

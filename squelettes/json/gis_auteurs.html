@@ -1,0 +1,35 @@
+		#SET{id_auteur,#ARRAY}
+		<BOUCLE_auteurs_trie(AUTEURS auteurs_elargis zones_auteurs){zones_auteurs.id_zone=1}{gis}{id_article ?}{id_auteur ?}{recherche ?}{region_pro ?}{tout} >
+			#SET{secteur,#SECTEUR|unserialize}
+			[(#GET{secteur}|is_array|oui|et{#ENV{secteur}|!={tout}|oui})
+				[(#ENV{secteur}|in_array{#GET{secteur}}|oui)
+					#SET{id_auteur,#GET{id_auteur}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_AUTEUR}}}
+					]
+				]
+			[(#ENV{secteur}|=={tout}|oui)
+					#SET{id_auteur,#GET{id_auteur}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_AUTEUR}}}
+				]
+			[(#ENV{secteur}|non|et{#ENV{region_pro}|oui})
+					#SET{id_auteur,#GET{id_auteur}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_AUTEUR}}}
+				]
+		</BOUCLE_auteurs_trie><BOUCLE_auteurs(AUTEURS auteurs_elargis){gis}{id_auteur IN #GET{id_auteur}}{0, #ENV{limit}}{","}>
+		{"type": "Feature",
+		"geometry": {"type": "Point", "coordinates": [#LON, #LAT]},
+		"id":"#ID_GIS",
+		"title":[(#TITRE_GIS*|sinon{#NOM*}|supprimer_numero|json_encode)][(#SET{adresse,''})],
+		"description":[(#SET{logo,#LOGO_AUTEUR|image_passe_partout{100,100}|image_recadre{100,100}})][(#VAL{[(#ADRESSE_PRO)] [<br/>(#CODE_POSTAL_PRO)]
+		[ (#VILLE_PRO)][<br /><a href='(#URL_AUTEUR)'>Voir détail</a>][<br />(#GET{logo})]}|json_encode)][(#SET{logo_doc,''})][(#SET{logo,''})]
+		[(#LOGO_GIS|oui)
+		[(#SET{logo_doc,#LOGO_GIS|image_passe_partout{32,32}|image_recadre{32,32}})]]
+		[(#LOGO_GIS|non)
+		[(#CHEMIN{images/marker_defaut.png}|oui)
+			[(#SET{logo_doc,#CHEMIN{images/marker_defaut.png}|image_passe_partout{32,32}|image_recadre{32,32}})]
+		]]
+		[(#GET{logo_doc}|oui)
+		#SET{icon_w,#GET{logo_doc}|extraire_attribut{src}|largeur}
+		#SET{icon_h,#GET{logo_doc}|extraire_attribut{src}|hauteur}
+		#SET{icon_anchorPoint,''}
+		[,"icon": (#GET{logo_doc}|extraire_attribut{src}|url_absolue|json_encode)],
+		"icon_size": [(#VAL{91}|chr)]#GET{icon_w},#GET{icon_h}[(#VAL{93}|chr)],
+		"icon_anchor": [(#VAL{91}|chr)][(#GET{icon_w}|div{2})],[(#GET{icon_h})][(#VAL{93}|chr)]
+		]}</BOUCLE_auteurs>

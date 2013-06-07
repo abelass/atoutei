@@ -1,0 +1,12 @@
+<li class="region_pro[ (#CONFIG{inscription2/region_pro_obligatoire}|=={on}|oui)obligatoire][ (#ENV**{erreurs}|table_valeur{region_pro}|oui)erreur]">
+  <label for="region_pro"><:provinces:></label>
+  <B_provinces>
+  <select name="region_pro" id="region_pro" class="text">
+    <option value=""[(#ENV{val}|=={''}|oui)selected="selected"]><:inscription2:choisissez:></option>
+    <BOUCLE_provinces(POUR){tableau (#VAL|correspondance_provinces)}>
+    <option value="#CLE"[(#ENV{region_pro,#ENV{val}}|=={#CLE}|oui)selected="selected"]>#VALEUR</option>
+    </BOUCLE_provinces>
+  </select>
+  </B_provinces>
+  [<p class='erreur_message'>(#ENV**{erreurs}|table_valeur{region_pro})</p>]
+</li>

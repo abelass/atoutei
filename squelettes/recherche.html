@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title><:resultats_recherche:> - [(#NOM_SITE_SPIP|textebrut)]</title>
+<INCLURE{fond=inc-head}>
+<meta name="robots" content="none" />
+
+
+[(#REM) mis dans inc-head
+<link href="design/atout_ei.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="shortcut icon" href="design/favicon.ico" />
+
+<script src='js/jquery-1.7.2.min.js' type='text/javascript'></script> <!-- menu déroulant -->
+<script src='js/menu.js' type='text/javascript'></script> <!-- menu déroulant -->
+]
+[(#REM) Feuille de style CSS avec les styles qui changent en fonction de la rubrique ]
+[<link rel="stylesheet" href="(#URL_PAGE{change_couleur_selon_rubrique.css,id_secteur=#ID_SECTEUR})" type="text/css" media="all" />]
+
+</head>
+
+<body>
+<div id="center_container">
+ <div id="outer_container">
+  <div id="page_utile">
+
+  <!-- header -->
+  <div id="header">
+	&nbsp;<a href="spip.php" class="back_home" title="Accueil"></a>
+    
+   <INCLURE{fond=inc-menu_public}{}/>
+    
+  <div id="col_gauche">&nbsp;
+
+  </div>
+     
+  <div id="col_centre">
+
+	[(#REM) Fil d'Ariane ]
+	<div id="fil_ariane"><a href="#URL_SITE_SPIP/"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}{id_rubrique !IN 1,2}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80}|supprimer_numero)</strong>]</div>
+
+
+
+        <h1><:resultats_recherche:> "#RECHERCHE"</h1>
+		
+		[(#REM) Articles trouves ]
+		<B_articles>
+			#ANCRE_PAGINATION
+			<h2><:articles:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_articles(ARTICLES) {recherche} {par points}{inverse} {pagination}>
+				<li><a href="#URL_ARTICLE">[(#TITRE|couper{100}|supprimer_numero)]</a></li>
+				</BOUCLE_articles>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</B_articles>
+		
+		[(#REM) Rubriques trouvees ]
+		<B_rubriques>
+			#ANCRE_PAGINATION
+			<h2><:rubriques:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_rubriques(RUBRIQUES) {recherche} {par points}{inverse} {pagination 5}>
+				<li><a href="#URL_RUBRIQUE">[(#TITRE|couper{100}|supprimer_numero)]</a></li>
+				</BOUCLE_rubriques>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</B_rubriques>
+		
+
+
+
+  </div>
+   
+   <div id="col_droite"><!-- col_droite -->
+	<INCLURE{fond=inc-colonne_droite}{id_secteur}>
+   </div><!-- #col_droite -->
+
+
+   <br class="float_stop" />
+    <div id="footer">
+	 <INCLURE{fond=inc-footer}>
+    </div>
+
+
+  </div>
+ </div>
+</div>
+
+
+
+</body>
+</html>

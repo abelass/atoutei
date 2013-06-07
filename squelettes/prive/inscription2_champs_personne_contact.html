@@ -1,0 +1,5 @@
+<li class="personne_contact[ (#CONFIG{inscription2/personne_contact_obligatoire}|=={on}|oui)obligatoire][ (#ENV**{erreurs}|table_valeur{personne_contact}|oui)erreur]">
+  <label for="personne_contact"><:personne_contact:></label>
+    <textarea name="personne_contact">#ENV{personne_contact,#ENV{val}}</textarea>
+  [<p class='erreur_message'>(#ENV**{erreurs}|table_valeur{personne_contact})</p>]
+</li>

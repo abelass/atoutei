@@ -1,0 +1,5 @@
+<li class="commentaire[ (#CONFIG{inscription2/commentaire_obligatoire}|=={on}|oui)obligatoire][ (#ENV**{erreurs}|table_valeur{commentaire}|oui)erreur]">
+  <label for="commentaire"><:commentaire:></label>
+    <textarea name="commentaire">#ENV{commentaire,#ENV{val}}</textarea>
+  [<p class='erreur_message'>(#ENV**{erreurs}|table_valeur{commentaire})</p>]
+</li>

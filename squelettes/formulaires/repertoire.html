@@ -1,0 +1,83 @@
+<div class="formulaire_spip formulaire_region">
+<form action="#ENV{action}" method="post"><div>
+    #ACTION_FORMULAIRE{#ENV{action}}
+    <div class="editer_la_demo obligatoire champ_float">
+	<label for="region"><:provinces:></label>
+	<B_provinces>
+	<select name="region_pro" id="region_pro" class="text">
+		<option value="""]><:inscription2:choisissez:></option>
+		<BOUCLE_provinces(POUR){tableau (#VAL|correspondance_provinces)}>
+		<option value="#CLE"[(#ENV{region_pro}|=={#CLE}|oui)selected="selected"]>#VALEUR</option>
+		</BOUCLE_provinces>
+	</select>
+	</B_provinces>
+        </div>
+         <div class="editer_la_demo obligatoire champ_float">
+	<B_secteurs>
+			<label for="secteur"><:inscription2:secteur:></label>
+		<select name="secteur" id="secteur" class="text">
+			<option value=""[(#ENV{val}|=={''}|oui)selected="selected"]><:inscription2:choisissez:></option>
+		<BOUCLE_secteurs(MOTS){id_groupe=1}>
+			<option value="#ID_MOT"[(#ENV{secteur}|=={#ID_MOT}|oui)selected="selected"]>[(#TITRE|couper{90}|supprimer_numero)]</option>
+		</BOUCLE_secteurs>
+		</select>
+	</B_secteurs>
+        </div>
+        
+<br class="float_stop" />&nbsp;<br />
+
+    <div class="boutons"><input type="submit" class="submit" value="<:pass_ok:>" /></div>
+</div></form>
+</div>
+
+
+<div class="afficher_tout">
+	<a class="ajax" href="[(#SELF|parametre_url{secteur,tout}|parametre_url{region_pro,''})]">
+    <img src="design/fleche.jpg" alt="Afficher tous les membres" />&nbsp;Afficher tout</a>
+</div>
+<!-- <div class="afficher_tout">
+	<a href="#carte_membres">
+    <img src="design/fleche.jpg" alt="Afficher la carte des membres" />&nbsp;Voir la carte des membres</a>
+</div> -->
+<br class="float_stop" />
+
+
+#SET{id_auteur,#ARRAY}
+<BOUCLE_auteurs_trie(AUTEURS auteurs_elargis zones_auteurs){statut!=0minirezo}{region_pro ?}{zones_auteurs.id_zone=1}{par auteurs_elargis.societe}{tout} >
+	#SET{secteur,#SECTEUR|unserialize}
+	[(#GET{secteur}|is_array|oui)
+		[(#ENV{secteur}|in_array{#GET{secteur}}|oui)
+			#SET{id_auteur,#GET{id_auteur}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_AUTEUR}}}
+			]
+		]
+	[(#ENV{secteur}|=={tout}|oui)
+			#SET{id_auteur,#GET{id_auteur}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_AUTEUR}}}
+		]
+	[(#ENV{secteur}|non|et{#ENV{region_pro}|oui})
+			#SET{id_auteur,#GET{id_auteur}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ID_AUTEUR}}}
+		]
+</BOUCLE_auteurs_trie>
+
+
+<B_auteurs>
+	[<div class="afficher_tout">(#GRAND_TOTAL) résultat(s)</div><br class="float_stop" />]
+	
+<BOUCLE_auteurs(AUTEURS auteurs_elargis){id_auteur IN #GET{id_auteur}}{tout}{par nom} >
+	<div class="un_membre_liste"><a href="#URL_AUTEUR">#NOM</a> <br /><span class="adresse_membre_liste"><a href="#URL_AUTEUR">#ADRESSE_PRO</a></span></div>
+</BOUCLE_auteurs>
+
+</B_auteurs>
+
+<br class="float_stop" />
+
+    [(#INCLURE{fond=modeles/carte_gis,
+            objets=auteurs,
+            zoom=8,
+            autofocus_marker=oui,
+            height=600px,
+            width=100%,
+            scale=oui,
+            secteur=#ENV{secteur},
+            region_pro=#ENV{region_pro}
+            }
+            )]

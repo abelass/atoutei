@@ -1,0 +1,5 @@
+<li class="secteur_detaille[ (#CONFIG{inscription2/secteur_detaille_obligatoire}|=={on}|oui)obligatoire][ (#ENV**{erreurs}|table_valeur{secteur_detaille}|oui)erreur]">
+  <label for="secteur_detaille"><:secteur_detaille:></label>
+    <textarea name="secteur_detaille">#ENV{secteur_detaille,#ENV{val}}</textarea>
+  [<p class='erreur_message'>(#ENV**{erreurs}|table_valeur{secteur_detaille})</p>]
+</li>

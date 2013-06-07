@@ -1,0 +1,32 @@
+#CACHE{3600*100,cache-client}
+#HTTP_HEADER{Content-Type: text/css; charset=iso-8859-15}
+#HTTP_HEADER{Vary: Accept-Encoding}
+
+body {
+	[(#ID_SECTEUR|=={2}|?{"background:#c4d387 url(design/membres/bg_html.jpg) repeat-x 0px 0px ;"})]
+}
+#outer_container {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/bg_y.jpg') repeat-y;"})]
+}
+#page_utile {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/bg_up.jpg') no-repeat  0px 0px ;"})]
+}
+.ce_moi_ci {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/ce_mois_ci_bg.jpg') repeat-y;"})]
+}
+.news_col_droite {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/news_col_droite_bg.jpg') repeat-y;"})]
+}
+.news_col_droite h3 {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/news_col_droite_titre.jpg') no-repeat  0px 0px ;"})]
+}
+
+.agenda_col_droite {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/agenda_col_droite_bg.jpg') repeat-y;"})]
+}
+.agenda_col_droite h3 {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/agenda_col_droite_titre.jpg') no-repeat  0px 0px ;"})]
+}
+#footer {
+	[(#ID_SECTEUR|=={2}|?{"background:url('design/membres/footer.jpg') no-repeat 0px 0px ;"})]
+}
