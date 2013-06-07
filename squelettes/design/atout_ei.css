@@ -586,3 +586,12 @@ li.editer_secteur input {
 	margin-top:20px;
 }
 
+/*Rainer*/
+
+.faq li {list-style:none}
+
+.faq li span.close{display:none}
+
+.faq li.actif span.close{display:inline}
+
+.faq li.actif span.open{display:none}

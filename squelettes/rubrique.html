@@ -10,15 +10,13 @@
 <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
 
 [(#REM) mis dans inc-head
-<link href="design/atout_ei.css" rel="stylesheet" type="text/css" media="all" />
-<link href="design/print_atout_ei.css" rel="stylesheet" type="text/css" media="print" />
-<script src='js/jquery-1.7.2.min.js' type='text/javascript'></script> <!-- menu déroulant -->
-<script src='js/menu.js' type='text/javascript'></script> <!-- menu déroulant -->
+    <link href="design/atout_ei.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="design/print_atout_ei.css" rel="stylesheet" type="text/css" media="print" />
+    <script src='js/jquery-1.7.2.min.js' type='text/javascript'></script> <!-- menu déroulant -->
+    <script src='js/menu.js' type='text/javascript'></script> <!-- menu déroulant -->
 ]
 
 <link rel="shortcut icon" href="design/favicon.ico" />
-
-
 
 [(#REM) Feuille de style CSS avec les styles qui changent en fonction de la rubrique ]
 [<link rel="stylesheet" href="(#URL_PAGE{change_couleur_selon_rubrique.css,id_secteur=#ID_SECTEUR})" type="text/css" media="all" />]
@@ -105,6 +103,11 @@
  
         [(#REM) Modifier Profil]
         [(#ID_RUBRIQUE|=={44}|oui)#FORMULAIRE_INSCRIPTION2{#SESSION{id_auteur}}]
+
+                [(#REM) Rubriques et sousrubriques FAQ]
+        <BOUCLE_faq(RUBRIQUES){id_rubrique}{branche 38}>
+			<INCLURE{fond=inclure/faq,env,ajax,branche=38}/>
+		</BOUCLE_faq>
 
 		
   </div>

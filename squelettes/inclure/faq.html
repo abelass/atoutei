@@ -1,0 +1,42 @@
+<B_faq>
+<ul class="faq">
+<BOUCLE_faq(RUBRIQUES){id_parent=#ENV{branche}} {par num titre,titre}{tout}>
+      <li class="categories">
+          <span class="open">+</span><span class="close">-</span><span>#TITRE</span>
+      <B_articles>
+          <ul class="questions">
+         <BOUCLE_articles(ARTICLES){id_rubrique} {par num titre,titre}>
+                 <li><a href="#URL_ARTICLE">#TITRE</a></li>
+         </BOUCLE_articles>
+         </ul>
+      </B_articles>
+
+      <B_enfant>
+          <ul>
+         <BOUCLE_enfant(RUBRIQUES){id_parent}>
+            <li  class="categories"><span class="open">+</span><span class="close">-</span><span>#TITRE</span>
+                  <B_articles2>
+                      <ul class="questions">
+                     <BOUCLE_articles2(ARTICLES){id_rubrique} {par num titre,titre}>
+                            <li><a href="#URL_ARTICLE">#TITRE</a></li>
+                     </BOUCLE_articles2>
+                     </ul>
+                  </B_articles2>
+            <BOUCLE_rec(BOUCLE_enfant)></BOUCLE_rec>
+             </li>            
+         </BOUCLE_enfant>
+         </ul>
+      </B_enfant>
+      </li>
+</BOUCLE_faq>
+</ul>
+</B_faq>
+
+<script type="text/javascript">
+    $(function(){
+        $('.faq ul').hide('fast');
+        $('li.categories span').click(function(){
+            $(this).parent().toggleClass('actif').children('ul').toggle('fast');       
+            });
+        });   
+</script>
