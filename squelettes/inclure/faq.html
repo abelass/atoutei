@@ -32,6 +32,15 @@
 </ul>
 </B_faq>
 
+<B_recherche>
+    <ul>
+   <BOUCLE_recherche(ARTICLES){branche}{recherche}{par points}>
+    <li><a href="#URL_ARTICLE">#TITRE</a></li>
+   </BOUCLE_recherche>
+    </ul>
+</B_recherche>
+
+
 <script type="text/javascript">
     $(function(){
         $('.faq ul').hide('fast');
@@ -40,11 +49,3 @@
             });
         });   
 </script>
-
-<B_recherche>
-    <ul>
-   <BOUCLE_recherche(ARTICLES){branche}{recherche}{par points}>
-    <li><a href="#URL_ARTICLE">#TITRE</a></li>
-   </BOUCLE_recherche>
-    </ul>
-</B_recherche>
