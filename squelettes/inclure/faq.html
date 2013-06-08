@@ -1,3 +1,11 @@
+<div class="formulaire_spip formulaire_recherche" id="formulaire_recherche_faq">
+<form action="#URL_RUBRIQUE" method="get"><div>
+    [<input type="hidden" name="lang" value="(#ENV{lang})" />]
+    <label for="recherche"><:info_rechercher_02:></label>
+    <input type="text" class="text" size="10" name="recherche" id="recherche"[ value="(#ENV{recherche})"] accesskey="4" /><input type="submit" class="submit" value="&gt;&gt;" title="<:info_rechercher:>" />
+</div></form>
+</div>
+
 <B_faq>
 <ul class="faq">
 <BOUCLE_faq(RUBRIQUES){id_parent=#ENV{branche}} {par num titre,titre}>
@@ -32,3 +40,11 @@
             });
         });   
 </script>
+
+<B_recherche>
+    <ul>
+   <BOUCLE_recherche(ARTICLES){branche}{recherche}{par points}>
+    <li><a href="#URL_ARTICLE">#TITRE</a></li>
+   </BOUCLE_recherche>
+    </ul>
+</B_recherche>
