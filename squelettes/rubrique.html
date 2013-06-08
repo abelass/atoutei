@@ -30,7 +30,7 @@
 
   <!-- header -->
   <div id="header">
-  <div id="print_head"><img src="design/print_head.jpg" alt="Atout EI" /></div>
+  <div id="print_head"><img src="#CHEMIN{design/print_head.jpg}" alt="Atout EI" /></div>
 	&nbsp;<a href="spip.php" class="back_home" title="Accueil"></a>
     
    [(#ID_SECTEUR|=={1}|oui)<INCLURE{fond=inc-menu_public}/>]
@@ -104,7 +104,7 @@
         [(#REM) Modifier Profil]
         [(#ID_RUBRIQUE|=={44}|oui)#FORMULAIRE_INSCRIPTION2{#SESSION{id_auteur}}]
 
-                [(#REM) Rubriques et sousrubriques FAQ]
+        [(#REM) Rubriques et sousrubriques FAQ]
         <BOUCLE_faq(RUBRIQUES){id_rubrique}{branche 38}>
 			<INCLURE{fond=inclure/faq,env,ajax,branche=38}/>
 		</BOUCLE_faq>
