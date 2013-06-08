@@ -2,7 +2,9 @@
 <ul class="faq">
 <BOUCLE_faq(RUBRIQUES){id_parent=#ENV{branche}} {par num titre,titre}{tout}>
       <li class="categories">
-          <span class="open">+</span><span class="close">-</span><span>#TITRE</span>
+        <div>
+            <span class="open">+ </span><span class="close">- </span>#TITRE
+       </div>
       <B_articles>
           <ul class="questions">
          <BOUCLE_articles(ARTICLES){id_rubrique} {par num titre,titre}>
@@ -14,7 +16,10 @@
       <B_enfant>
           <ul>
          <BOUCLE_enfant(RUBRIQUES){id_parent}>
-            <li  class="categories"><span class="open">+</span><span class="close">-</span><span>#TITRE</span>
+            <li  class="categories">
+                <div>
+                    <span class="open">+ </span><span class="close">- </span>#TITRE
+                </div>
                   <B_articles2>
                       <ul class="questions">
                      <BOUCLE_articles2(ARTICLES){id_rubrique} {par num titre,titre}>
@@ -35,8 +40,8 @@
 <script type="text/javascript">
     $(function(){
         $('.faq ul').hide('fast');
-        $('li.categories span').click(function(){
-            $(this).parent().toggleClass('actif').children('ul').toggle('fast');       
+        $('li.categories div').click(function(){
+            $(this).toggleClass('actif').next('ul').toggle('fast');       
             });
         });   
 </script>

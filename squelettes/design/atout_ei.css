@@ -592,6 +592,6 @@ li.editer_secteur input {
 
 .faq li span.close{display:none}
 
-.faq li.actif span.close{display:inline}
+.faq li div.actif span.close{display:inline}
 
-.faq li.actif span.open{display:none}
+.faq li div.actif span.open{display:none}
